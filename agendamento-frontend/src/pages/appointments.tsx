@@ -55,10 +55,10 @@ const Appointment = () => {
                 shadow="sm"
                 isPressable
                 onPress={() => console.log('item pressed')}
-                className="max-w-sm " 
+                className="max-w-sm appointment-button" 
               >
                 <CardBody>
-                  <div className="overflow-visible p-4 justify-center">
+                  <div className="overflow-visible p-4 justify-center  ">
                     <h3 className="text-lg font-semibold ">Nome: {appointment.name}</h3>
                     <p className="text-sm">Data: {formattedDate}</p>
                     <p className="text-sm">Hora: {formattedTime}</p>

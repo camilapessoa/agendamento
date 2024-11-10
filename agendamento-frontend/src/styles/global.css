@@ -50,6 +50,12 @@ input, button, .datepicker {
   box-sizing: border-box;
 }
 
+.appointment-button{
+  width: 30% ;
+  margin: 10px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 button {
   background-color: #0088b5;
   color: white;
