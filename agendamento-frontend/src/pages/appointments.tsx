@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { format } from 'date-fns'
+import { Card, CardBody } from '@nextui-org/react';
+import { format } from 'date-fns';
+
 
 interface Appointment {
   id: number;
@@ -19,8 +21,6 @@ const Appointment = () => {
     const fetchAppointments = async () => {
       try {
         const response = await axios.get('http://localhost:3000/appointments');
-        console.log(response.data);
-        
         setAppointments(response.data);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
@@ -38,28 +38,38 @@ const Appointment = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <h1>Agendamentos</h1>
-      {appointments.length === 0 ? (
-        <p>Não há agendamentos registrados.</p>
-      ) : (
-        <ul>
-          {appointments.map((appointment) => {
-            const formattedDate = format(new Date(appointment.date), 'dd/MM/yyyy'); 
-            const formattedTime = format(new Date(appointment.date), 'HH:mm')
+    <div className="p-6 ">
+        <div className="text-4xl font-semibold mb-4 text-center"><h1>Agendamentos</h1></div>
+      
+      <div className="gap-2 grid grid-cols-4 sm:grid-cols-2">
+        {appointments.length === 0 ? (
+          <p>Não há agendamentos registrados.</p>
+        ) : (
+          appointments.map((appointment) => {
+            const formattedDate = format(new Date(appointment.date), 'dd/MM/yyyy');
+            const formattedTime = format(new Date(appointment.date), 'HH:mm');
+
             return (
-              <li key={appointment.id}>
-                <strong>{appointment.name}</strong>
-                <p>
-                  Data: {formattedDate} <br />
-                  Hora: {formattedTime} <br />
-                  Local: {appointment.location}
-                </p>
-              </li>
+              <Card
+                key={appointment.id}
+                shadow="sm"
+                isPressable
+                onPress={() => console.log('item pressed')}
+                className="max-w-sm " 
+              >
+                <CardBody>
+                  <div className="overflow-visible p-4 justify-center">
+                    <h3 className="text-lg font-semibold ">Nome: {appointment.name}</h3>
+                    <p className="text-sm">Data: {formattedDate}</p>
+                    <p className="text-sm">Hora: {formattedTime}</p>
+                    <p className="text-sm">Local: {appointment.location}</p>
+                  </div>
+                </CardBody>
+              </Card>
             );
-          })}
-        </ul>
-      )}
+          })
+        )}
+      </div>
     </div>
   );
 };
